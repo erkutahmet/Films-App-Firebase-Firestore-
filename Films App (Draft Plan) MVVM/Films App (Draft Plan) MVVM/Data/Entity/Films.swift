@@ -8,7 +8,7 @@
 import Foundation
 
 class Films {
-    var id: Int?
+    var id: String?
     var name: String?
     var image: String?
     var price: Int?
@@ -17,7 +17,7 @@ class Films {
         
     }
     
-    init(id: Int, name: String, image: String, price: Int) {
+    init(id: String, name: String, image: String, price: Int) {
         self.id = id
         self.name = name
         self.image = image
