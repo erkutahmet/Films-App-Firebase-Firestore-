@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DetailPage: UIViewController {
 
@@ -23,7 +24,11 @@ class DetailPage: UIViewController {
     private func setUI() {
         if let f = film {
             filmLabel.text = f.name
-            filmImageView.image = UIImage(named: f.image!)
+            if let url = URL(string: "http://kasimadalan.pe.hu/filmler_yeni/resimler/\(f.image!)"){
+                DispatchQueue.main.async {
+                    self.filmImageView.kf.setImage(with: url)
+                }
+            }
             priceLabel.text = "\(f.price!) $"
         }
     }

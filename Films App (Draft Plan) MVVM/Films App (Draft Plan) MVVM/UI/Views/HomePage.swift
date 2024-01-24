@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseFirestore
+import Kingfisher
 
 class HomePage: UIViewController {
 
@@ -22,7 +22,9 @@ class HomePage: UIViewController {
         
         _ = homePageVM.filmsList.subscribe(onNext: { list in
             self.filmsList = list
-            self.filmsCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.filmsCollectionView.reloadData()
+            }
         })
     }
     
@@ -53,8 +55,13 @@ extension HomePage: UICollectionViewDelegate, UICollectionViewDataSource, CellPr
         let film = filmsList[indexPath.row]
         
         let cell = filmsCollectionView.dequeueReusableCell(withReuseIdentifier: "filmCell", for: indexPath) as! FilmCell
-        
-        cell.filmImageView.image = UIImage(named: film.image!)
+
+        if let url = URL(string: "http://kasimadalan.pe.hu/filmler_yeni/resimler/\(film.image!)"){
+            DispatchQueue.main.async {
+                cell.filmImageView.kf.setImage(with: url)
+            }
+        }
+
         cell.priceLabel.text = "\(film.price!) $"
         
         cell.layer.borderColor = UIColor.lightGray.cgColor
